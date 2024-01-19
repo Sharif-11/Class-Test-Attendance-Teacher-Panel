@@ -18,7 +18,7 @@ const Dashboard = () => {
             to="./courses"
             className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full"
           >
-            Courses
+            My Courses
           </Link>
         </li>
         <li>
@@ -37,6 +37,23 @@ const Dashboard = () => {
             All Semesters
           </Link>
         </li>
+        <li>
+          <Link
+            to="./all-students"
+            className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full"
+          >
+            All Students
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="./all-teachers"
+            className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full"
+          >
+            All Teachers
+          </Link>
+        </li>
+
         <li>
           <button className="outline-none inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
             Logout

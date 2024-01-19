@@ -1,7 +1,7 @@
 // Course.ts
 interface Course {
   id: number;
-  name: string;
+  courseTitle: string;
   code: string;
   credit: number;
 }
@@ -16,12 +16,18 @@ interface CourseCardProps {
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   return (
     <div className="course-card">
-      <h3>{course.name}</h3>
+      <h3>{course.courseTitle}</h3>
       <p>
         <strong>Course Code:</strong> {course.code}
       </p>
       <p>
         <strong>Credit:</strong> {course.credit}
+      </p>
+      <p>
+        <strong>Batch:</strong> {"2018"}
+      </p>
+      <p>
+        <strong>Session:</strong> {"2019 - 2020"}
       </p>
     </div>
   );

@@ -1,14 +1,19 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AllSemesters = () => {
+  const navigate = useNavigate();
   const [semesters, setSemesters] = useState([
-    { id: 1, name: "Level 1 Term 1", session: "2018-2019" },
+    { id: 1, name: "Level 1 Term 1", session: "2018-2019", batch: "2018" },
   ]);
   return (
     <div className="container">
       <div className="flex justify-between items-center">
         <h2>All Semesters</h2>
-        <button className="bg-transparent text-white border-[white]">
+        <button
+          className="bg-transparent text-white border-[white]"
+          onClick={() => navigate("/dashboard/create-semester")}
+        >
           + Add
         </button>
       </div>
@@ -16,8 +21,8 @@ const AllSemesters = () => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
+            <th>Title</th>
+            <th>Batch</th>
             <th>Session</th>
             <th>Action</th>
           </tr>
@@ -25,11 +30,27 @@ const AllSemesters = () => {
         <tbody>
           {semesters.map((semester) => (
             <tr key={semester?.id}>
-              <td>{semester?.id}</td>
               <td>{semester!.name}</td>
+              <td>{semester!.batch}</td>
               <td>{semester!.session}</td>
               <td>
                 <button className="delete-btn">Delete</button>
+                <button
+                  className="delete-btn"
+                  onClick={() =>
+                    navigate(`/dashboard/semester-courses/${semester.id}`)
+                  }
+                >
+                  View Course
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={() =>
+                    navigate(`/dashboard/assign-course/${semester.id}`)
+                  }
+                >
+                  Assign Course
+                </button>
               </td>
             </tr>
           ))}

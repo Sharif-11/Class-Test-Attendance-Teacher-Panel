@@ -7,8 +7,8 @@ const Courses = () => {
       <CourseCard
         course={{
           id: 1,
-          name: "Introduction to Computer Science",
-          code: "CS101",
+          courseTitle: "Introduction to Computer Science",
+          code: "CSE-101",
           credit: 3,
         }}
       />

@@ -1,31 +1,31 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./AllCourse.css"; // Import your CSS file for styling
+import "./AllTeacher.css"; // Import your CSS file for styling
 
-const AllCourse: React.FC = () => {
+const AllTeacher: React.FC = () => {
   const navigate = useNavigate();
-  const [courses, setCourses] = useState([
+  const [teachers, setTeachers] = useState([
     {
-      id: 1,
-      title: "Introduction to React",
-      courseCode: "REACT101",
-      credit: 3,
+      id: "CSE-1801",
+      name: "Ashfaque Habib",
+      email: "ashfaque@cuet.ac.bd",
+      department: "CSE",
     },
     {
-      id: 2,
-      title: "Introduction to React2",
-      courseCode: "REACT101",
-      credit: 3,
+      id: "CSE-1802",
+      name: "Shafiul Alam Forhad",
+      email: "forhad@cuet.ac.bd",
+      department: "CSE",
     },
   ]);
 
   return (
     <div className="container">
       <div className="flex justify-between items-center">
-        <h2>All Courses</h2>
+        <h2>All Teachers</h2>
         <button
           className="bg-transparent text-white border-[white]"
-          onClick={() => navigate("/dashboard/create-course")}
+          onClick={() => navigate("/dashboard/create-teacher")}
         >
           + Add
         </button>
@@ -35,19 +35,19 @@ const AllCourse: React.FC = () => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Title</th>
-            <th>Course Code</th>
-            <th>Credit</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {courses.map((course) => (
-            <tr key={course.id}>
-              <td>{course.id}</td>
-              <td>{course.title}</td>
-              <td>{course.courseCode}</td>
-              <td>{course.credit}</td>
+          {teachers?.map((teacher) => (
+            <tr key={teacher.id}>
+              <td>{teacher.id}</td>
+              <td>{teacher.name}</td>
+              <td>{teacher.email}</td>
+              <td>{teacher.department}</td>
               <td>
                 <button className="delete-btn">Delete</button>
               </td>
@@ -89,4 +89,4 @@ const AllCourse: React.FC = () => {
   );
 };
 
-export default AllCourse;
+export default AllTeacher;
