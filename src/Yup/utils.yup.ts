@@ -35,3 +35,6 @@ export const deptHeadValidation = Yup.boolean().required(
 
 export const profileImageValidation =
   Yup.mixed().required("*Image is required");
+export const excelFileValidation = Yup.mixed().required(
+  "*Excel file is required"
+);

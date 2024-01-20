@@ -27,3 +27,12 @@ export type CourseResponse = {
   semester: { semesterTitle: string; batch: string; session: string };
   course: { courseTitle: string; credit: number };
 };
+export type ClassTestResponse = {
+  classTestId: string;
+  evaluated: boolean;
+  full_mark: number;
+  courseCode: string;
+  semesterId: string;
+  createdAt: string;
+  updatedAt: string;
+};

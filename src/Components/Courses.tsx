@@ -28,6 +28,7 @@ const Courses = () => {
           <CourseCard
             key={idx}
             courseCode={course.courseCode}
+            semesterId={course.semesterId}
             {...course.semester}
             {...course.course}
           />

@@ -5,4 +5,5 @@ export interface Course {
   batch: string;
   session: string;
   semesterTitle: string;
+  semesterId: string;
 }
