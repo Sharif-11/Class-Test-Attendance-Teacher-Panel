@@ -1,12 +1,13 @@
 import { useFormik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { TeacherContext } from "../App";
 import { setAuthHeader } from "../Axios/axiosInstance";
 import { postData } from "../Axios/postData";
 import { TeacherLogin } from "../Interfaces/login.interface";
 import { ErrorResponse } from "../Interfaces/response.interface";
 import { Teacher } from "../Interfaces/user.interface";
+import { setTeacher } from "../Redux/Slicers/teacherSlice";
 import { loginSchema } from "../Yup/login.yup";
 import Form from "./Form";
 import InputField from "./InputField";
@@ -155,14 +156,14 @@ import InputField from "./InputField";
 // `;
 
 const Login: React.FC = () => {
-  const { setTeacher } = useContext(TeacherContext);
   const [isSubmitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
-      teacherId: "CSE-1801",
-      password: "123456ashfaque",
+      teacherId: "CSE-1804",
+      password: "123456forhad",
     },
     validationSchema: loginSchema,
     onSubmit: async (values) => {
@@ -176,8 +177,8 @@ const Login: React.FC = () => {
       });
       if (result.data) {
         const { token, ...teacherData } = result.data;
-        setTeacher(teacherData);
         setAuthHeader(token);
+        dispatch(setTeacher(teacherData));
         setSubmitting(false);
         navigate("/dashboard");
       } else {

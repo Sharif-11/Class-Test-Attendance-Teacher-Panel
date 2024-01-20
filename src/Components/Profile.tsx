@@ -1,49 +1,25 @@
-// Teacher.ts
-interface Teacher {
-  id: number;
-  name: string;
-  department: string;
-  designation: string;
-  specialization: string;
-  profileImageUrl: string;
-  email: string;
-}
+import { useAppSelector } from "../Redux/hooks";
 
-// TeacherProfile.tsx
-import React from "react";
-
-interface TeacherProfileProps {
-  teacher: Teacher;
-}
-
-const Profile: React.FC<TeacherProfileProps> = ({
-  teacher = {
-    id: 1,
-    name: "John Doe",
-    department: "Computer Science",
-    designation: "Professor",
-    specialization: "Machine Learning",
-    profileImageUrl: "path-to-profile-image.jpg",
-    email: "john@gmail.com",
-  },
-}) => {
+const Profile = () => {
+  const teacher = useAppSelector((state) => state.user.teacher);
   return (
-    <div className="teacher-profile">
-      <div className="profile-image-container">
+    <div className="teacher-profile flex justify-center">
+      <div className="profile-image-container mx-8">
         <img
-          src={teacher.profileImageUrl}
+          src={
+            "https://res.cloudinary.com/dqnw5qaoq/image/upload/v1704813492/h7gwmogbg7r0uv4ag8s8.jpg"
+          }
           alt={`${teacher.name}'s profile`}
-          className="profile-image"
+          className="profile-image rounded-full w-[150px] h-[150px]"
         />
       </div>
       <div className="profile-details">
         <h2>{teacher.name}</h2>
+        <h6>{teacher.designation}</h6>
         <p>
           <strong>Department:</strong> {teacher.department}
         </p>
-        <p>
-          <strong>Designation:</strong> {teacher.designation}
-        </p>
+
         <p>
           <strong>Specialization:</strong> {teacher.specialization}
         </p>

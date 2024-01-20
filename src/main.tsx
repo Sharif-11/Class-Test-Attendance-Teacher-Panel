@@ -1,5 +1,6 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import AllCourse from "./Components/AllCourse.tsx";
@@ -14,14 +15,16 @@ import SemesterCourses from "./Components/SemesterCourses.tsx";
 import SemesterForm from "./Components/SemesterForm.tsx";
 import StudentForm from "./Components/StudentForm.tsx";
 import TeacherForm from "./Components/TeacherForm.tsx";
+import store from "./Redux/store.ts";
 import "./index.css";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
   {
-    path: "/dashboard",
+    path: "dashboard",
     element: <Dashboard />,
     children: [
       {
@@ -71,8 +74,9 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  <Provider store={store}>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </Provider>
 );
