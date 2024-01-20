@@ -26,12 +26,14 @@ const ClassTests = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reload]);
   return (
-    <div className="container">
-      <div className="flex justify-between items-center">
+    <div className="container ">
+      <div className="flex justify-between items-cente">
         <h2>All Class Tests</h2>
         <button
           className="bg-transparent text-white border-[white]"
-          onClick={() => navigate("/dashboard/create-semester")}
+          onClick={() =>
+            navigate(`/dashboard/courses/${semesterId}/${courseCode}/create-ct`)
+          }
         >
           + New
         </button>
@@ -46,7 +48,7 @@ const ClassTests = () => {
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody style={{ overflow: "scroll" }}>
           {ct.map((ct: ClassTestResponse, idx: number) => (
             <Ct {...ct} idx={idx} setReload={setReload} />
           ))}

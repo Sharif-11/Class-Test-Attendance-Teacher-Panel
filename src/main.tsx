@@ -8,6 +8,7 @@ import AllSemesters from "./Components/AllSemester.tsx";
 import AllStudent from "./Components/AllStudent.tsx";
 import AllTeacher from "./Components/AllTeachers.tsx";
 import AssignForm from "./Components/AssignForm.tsx";
+import ClassTestForm from "./Components/ClassTestForm.tsx";
 import ClassTests from "./Components/Classtests.tsx";
 import Courses from "./Components/Courses.tsx";
 import Dashboard from "./Components/Dashboard.tsx";
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
       {
         path: "courses/:semesterId/:courseCode",
         element: <ClassTests />,
+      },
+      {
+        path: "courses/:semesterId/:courseCode/create-ct",
+        element: <ClassTestForm />,
       },
     ],
   },

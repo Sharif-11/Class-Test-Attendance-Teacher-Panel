@@ -1,7 +1,10 @@
 import { useFormik } from "formik";
 import { useState } from "react";
 import { postData } from "../Axios/postData";
-import { ErrorResponse } from "../Interfaces/response.interface";
+import {
+  ClassTestResponse,
+  ErrorResponse,
+} from "../Interfaces/response.interface";
 import { evaluateCtschema } from "../Yup/ct.yup";
 const Ct = ({
   idx,
@@ -31,7 +34,7 @@ const Ct = ({
         true
       );
       if (result.data) {
-        setReload(true);
+        setReload((pre: boolean) => !pre);
         setEvaluating(false);
       } else {
         alert((result as ErrorResponse).message);
@@ -39,6 +42,30 @@ const Ct = ({
       }
     },
   });
+  const handleCancellation = async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result = await postData<ClassTestResponse, any>(
+      `/ct/cancel-evaluation/${classTestId}`,
+      {}
+    );
+    if (result.data) {
+      setReload((pre: boolean) => !pre);
+    } else {
+      alert((result as ErrorResponse).message);
+    }
+  };
+  const handleDelete = async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // const result = await postData<ClassTestResponse, any>(
+    //   `/ct/${classTestId}`,
+    //   {}
+    // );
+    // if (result.data) {
+    //   setReload((pre: boolean) => !pre);
+    // } else {
+    //   alert((result as ErrorResponse).message);
+    // }
+  };
 
   return (
     <tr key={idx}>
@@ -60,19 +87,28 @@ const Ct = ({
               onBlur={formik.handleBlur}
             />
 
-            <button type="submit" className="my-2 btn-outline">
+            <button type="submit" className="my-1 btn-outline">
               Evaluate
             </button>
           </form>
         )}
       </td>
       <td>
-        <button
-          className="delete-btn disabled:bg-gray-400"
-          disabled={evaluated}
-        >
-          Delete
-        </button>
+        {evaluated === false ? (
+          <button
+            className="delete-btn disabled:bg-gray-400"
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
+        ) : (
+          <button
+            className="delete-btn disabled:bg-gray-400"
+            onClick={handleCancellation}
+          >
+            Cancel
+          </button>
+        )}
       </td>
     </tr>
   );
