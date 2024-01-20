@@ -1,33 +1,30 @@
-// Course.ts
-interface Course {
-  id: number;
-  courseTitle: string;
-  code: string;
-  credit: number;
-}
-
-// CourseCard.tsx
-import React from "react";
+import { Course } from "../Interfaces/utils.interfaces";
 import "./course.css";
-interface CourseCardProps {
-  course: Course;
-}
-
-const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
+const CourseCard = ({
+  courseTitle,
+  credit,
+  batch,
+  session,
+  semesterTitle,
+  courseCode,
+}: Course) => {
   return (
     <div className="course-card">
-      <h3>{course.courseTitle}</h3>
+      <h3>{courseTitle}</h3>
       <p>
-        <strong>Course Code:</strong> {course.code}
+        <strong>Course Code:</strong> {courseCode}
       </p>
       <p>
-        <strong>Credit:</strong> {course.credit}
+        <strong>Credit:</strong> {credit}
       </p>
       <p>
-        <strong>Batch:</strong> {"2018"}
+        <strong>{semesterTitle}</strong>
       </p>
       <p>
-        <strong>Session:</strong> {"2019 - 2020"}
+        <strong>Batch:{batch}</strong>
+      </p>
+      <p>
+        <strong>Session:{session}</strong>
       </p>
     </div>
   );

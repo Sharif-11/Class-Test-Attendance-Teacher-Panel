@@ -177,7 +177,7 @@ const Login: React.FC = () => {
       });
       if (result.data) {
         const { token, ...teacherData } = result.data;
-        setAuthHeader(token);
+        console.log(setAuthHeader(token));
         dispatch(setTeacher(teacherData));
         setSubmitting(false);
         navigate("/dashboard");
