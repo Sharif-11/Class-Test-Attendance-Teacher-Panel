@@ -1,23 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { pageSize } from "../../Shared/pageSize";
+import { fetchData } from "../Axios/fecthData";
+import { Courses, SuccessResponse } from "../Interfaces/response.interface";
 import "./AllCourse.css"; // Import your CSS file for styling
+import Pagination from "./Pagination";
 
 const AllCourse: React.FC = () => {
   const navigate = useNavigate();
-  const [courses, setCourses] = useState([
-    {
-      id: 1,
-      title: "Introduction to React",
-      courseCode: "REACT101",
-      credit: 3,
-    },
-    {
-      id: 2,
-      title: "Introduction to React2",
-      courseCode: "REACT101",
-      credit: 3,
-    },
-  ]);
+  const [courses, setCourses] = useState<Courses>([]);
+  const [nextCourses, setNextCourses] = useState<Courses>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [initialIdx, setInitialIndex] = useState(0);
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const result = await fetchData<Courses>(`/courses?page=${currentPage}`);
+      if (result.success) {
+        const data = (result as SuccessResponse<Courses>).data;
+        setCourses(data);
+      }
+    };
+    const fetchNextCourses = async () => {
+      const result = await fetchData<Courses>(
+        `/courses?page=${currentPage + 1}`
+      );
+      if (result.success) {
+        const data = (result as SuccessResponse<Courses>).data;
+        setNextCourses(data);
+      }
+    };
+    fetchCourses();
+    fetchNextCourses();
+    setInitialIndex(pageSize * (currentPage - 1));
+  }, [currentPage]);
 
   return (
     <div className="container">
@@ -42,10 +57,10 @@ const AllCourse: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {courses.map((course) => (
-            <tr key={course.id}>
-              <td>{course.id}</td>
-              <td>{course.title}</td>
+          {courses.map((course, idx: number) => (
+            <tr key={idx}>
+              <td>{idx + 1 + initialIdx}</td>
+              <td>{course.courseTitle}</td>
               <td>{course.courseCode}</td>
               <td>{course.credit}</td>
               <td>
@@ -55,6 +70,13 @@ const AllCourse: React.FC = () => {
           ))}
         </tbody>
       </table>
+      {courses.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          nextItems={nextCourses}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
 
       {/* <div className="form-container">
         <div>

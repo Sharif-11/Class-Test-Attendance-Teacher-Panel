@@ -10,6 +10,7 @@ import AllTeacher from "./Components/AllTeachers.tsx";
 import AssignForm from "./Components/AssignForm.tsx";
 import ClassTestForm from "./Components/ClassTestForm.tsx";
 import ClassTests from "./Components/Classtests.tsx";
+import CourseForm from "./Components/CourseForm.tsx";
 import Courses from "./Components/Courses.tsx";
 import Dashboard from "./Components/Dashboard.tsx";
 import Profile from "./Components/Profile.tsx";
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "create-semester",
         element: <SemesterForm />,
+      },
+      {
+        path: "create-course",
+        element: <CourseForm />,
       },
       {
         path: "assign-course/:semesterId",

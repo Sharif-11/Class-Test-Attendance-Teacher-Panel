@@ -36,3 +36,10 @@ export type ClassTestResponse = {
   createdAt: string;
   updatedAt: string;
 };
+export type Courses = {
+  courseCode: string;
+  courseTitle: string;
+  credit: number;
+  createdAt: string;
+  updatedAt: string;
+}[];
