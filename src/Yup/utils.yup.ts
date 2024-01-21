@@ -69,3 +69,7 @@ export const sessionValidator = Yup.string()
     return endYear === startYear + 1;
   })
   .required("*Session is required");
+export const semesterIdValidator = Yup.string()
+  .trim()
+  .matches(/^(19\d{2}|20\d{2})[1-8]$/, "Invalid semester ID")
+  .required("*Semester ID is required");
