@@ -45,12 +45,14 @@ const InputField = ({
   name,
   label,
   readOnly,
+  className = "",
 }: {
   formik: any;
   type?: string;
   name: string;
   label: string;
   readOnly?: boolean;
+  className?: string;
 }) => {
   return (
     <UserBox>
@@ -70,6 +72,7 @@ const InputField = ({
         }
         onBlur={formik.handleBlur}
         readOnly={readOnly || false}
+        className={className}
       />
       <Label htmlFor={name}>{label}</Label>
       <Error>{formik.errors[name]}</Error>

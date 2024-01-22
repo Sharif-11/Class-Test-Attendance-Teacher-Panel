@@ -10,6 +10,7 @@ const gradientAnimation = keyframes`
 `;
 const FormContainer = styled.div`
   height: 100%;
+  width: auto;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -19,7 +20,8 @@ const Container = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 400px;
+  width: auto;
+  min-width: 400px;
   padding: 40px;
   transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, 0.5);
@@ -109,6 +111,7 @@ const Form = ({
   submitText,
   disabled,
   error,
+  customStyle = {},
 }: {
   title: string;
   formik: any;
@@ -116,12 +119,13 @@ const Form = ({
   submitText: string;
   disabled?: boolean;
   error?: string;
+  customStyle?: any;
 }) => {
   return (
     <FormContainer>
       <Container>
         <Title>{title}</Title>
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit} style={customStyle}>
           {children}
           <div
             style={{ display: "flex", justifyContent: "center", width: "100%" }}

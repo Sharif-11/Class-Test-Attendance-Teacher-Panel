@@ -10,6 +10,7 @@ import InputField from "./InputField";
 const TeacherForm = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues: {
       teacherId: "",
@@ -24,11 +25,14 @@ const TeacherForm = () => {
     validationSchema: teacherValidation,
     onSubmit: async (values) => {
       setError("");
+      setLoading(true);
       const result = await postData("/teacher/signup", values, true);
       if (result.data) {
+        setLoading(false);
         navigate("/dashboard/all-teachers");
       } else {
         const message = (result as ErrorResponse).message;
+        setLoading(false);
         setError(message);
       }
     },
@@ -36,9 +40,17 @@ const TeacherForm = () => {
   return (
     <Form
       formik={formik}
-      submitText="Create"
+      submitText={loading ? "Creating..." : "Create"}
+      disabled={loading}
       title="Create Teacher"
       error={error}
+      customStyle={{
+        display: "flex",
+        width: "550px",
+        flexWrap: "wrap",
+
+        justifyContent: "space-between",
+      }}
     >
       <InputField name="teacherId" formik={formik} label="Teacher Id" />
       <InputField name="name" formik={formik} label="Name" />
