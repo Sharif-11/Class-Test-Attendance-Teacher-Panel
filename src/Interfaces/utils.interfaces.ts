@@ -7,6 +7,10 @@ export interface Course {
   semesterTitle: string;
   semesterId: string;
 }
+interface Teacher {
+  name: string;
+  email: string;
+}
 export type CourseInput = {
   courseCode: string;
   courseTitle: string;
@@ -55,5 +59,10 @@ export type AssignCourseOutput = {
     batch: string;
   };
   course: { courseCode: string; courseTitle: string; credit: number };
-  teacher: { name: string; email: string };
+  teacher: Teacher;
+};
+
+export type SemesterCoursesType = {
+  course: CourseInput;
+  teachers: Teacher[];
 };

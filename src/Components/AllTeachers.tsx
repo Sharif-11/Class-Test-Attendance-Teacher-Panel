@@ -1,24 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchData } from "../Axios/fecthData";
+import { SuccessResponse } from "../Interfaces/response.interface";
+import { Teacher } from "../Interfaces/user.interface";
 import "./AllTeacher.css"; // Import your CSS file for styling
+import Pagination from "./Pagination";
 
 const AllTeacher: React.FC = () => {
   const navigate = useNavigate();
-  const [teachers, setTeachers] = useState([
-    {
-      id: "CSE-1801",
-      name: "Ashfaque Habib",
-      email: "ashfaque@cuet.ac.bd",
-      department: "CSE",
-    },
-    {
-      id: "CSE-1802",
-      name: "Shafiul Alam Forhad",
-      email: "forhad@cuet.ac.bd",
-      department: "CSE",
-    },
-  ]);
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [nextItems, setNextItems] = useState<Teacher[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
+  useEffect(() => {
+    const fetchItems = async () => {
+      const result = await fetchData<Teacher[]>(`/teacher?page=${currentPage}`);
+      if (result.success) {
+        const data = (result as SuccessResponse<Teacher[]>).data;
+        setTeachers(data);
+      }
+    };
+    const fetchNextItems = async () => {
+      const result = await fetchData<Teacher[]>(
+        `/teacher?page=${currentPage + 1}`
+      );
+      if (result.success) {
+        const data = (result as SuccessResponse<Teacher[]>).data;
+        setNextItems(data);
+      }
+    };
+    fetchItems();
+    fetchNextItems();
+  }, [currentPage]);
   return (
     <div className="container">
       <div className="flex justify-between items-center">
@@ -42,20 +55,22 @@ const AllTeacher: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {teachers?.map((teacher) => (
-            <tr key={teacher.id}>
-              <td>{teacher.id}</td>
+          {teachers?.map((teacher, idx: number) => (
+            <tr key={idx}>
+              <td>{teacher.teacherId}</td>
               <td>{teacher.name}</td>
               <td>{teacher.email}</td>
               <td>{teacher.department}</td>
-              <td>
-                <button className="delete-btn">Delete</button>
-              </td>
+              <td>{/* <button className="delete-btn">Delete</button> */}</td>
             </tr>
           ))}
         </tbody>
       </table>
-
+      <Pagination
+        currentPage={currentPage}
+        nextItems={nextItems}
+        setCurrentPage={setCurrentPage}
+      />
       {/* <div className="form-container">
         <div>
           <label>Title:</label>

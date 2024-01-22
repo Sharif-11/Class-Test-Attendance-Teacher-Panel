@@ -1,29 +1,25 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { fetchData } from "../Axios/fecthData";
+import { SuccessResponse } from "../Interfaces/response.interface";
+import { SemesterCoursesType } from "../Interfaces/utils.interfaces";
 import "./AllCourse.css"; // Import your CSS file for styling
 
 const SemesterCourses: React.FC = () => {
-  const navigate = useNavigate();
-  const [courses, setCourses] = useState([
-    {
-      id: 1,
-      title: "Introduction to React",
-      courseCode: "REACT101",
-      credit: 3,
-      teachers: [{ name: "Mr X", email: "abc@gmail.com" }],
-    },
-    {
-      id: 2,
-      title: "Introduction to React2",
-      courseCode: "REACT101",
-      credit: 3,
-      teachers: [
-        { name: "Mr Y", email: "ab@gmail.com" },
-        { name: "Mr Z", email: "ab@gmail.com" },
-      ],
-    },
-  ]);
-
+  const { semesterId = "" } = useParams();
+  const [courses, setCourses] = useState<SemesterCoursesType[]>([]);
+  useEffect(() => {
+    const fetchCourse = async () => {
+      const result = await fetchData<SemesterCoursesType[]>(
+        `semesters/courses/${semesterId}`
+      );
+      if (result.success) {
+        const data = (result as SuccessResponse<SemesterCoursesType[]>).data;
+        setCourses(data);
+      }
+    };
+    fetchCourse();
+  }, []);
   return (
     <div className="container">
       <div className="flex justify-between items-center">
@@ -41,12 +37,12 @@ const SemesterCourses: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {courses.map((course) => (
-            <tr key={course.id}>
-              <td>{course.id}</td>
-              <td>{course.title}</td>
-              <td>{course.courseCode}</td>
-              <td>{course.credit}</td>
+          {courses.map((course, idx: number) => (
+            <tr key={idx}>
+              <td>{idx + 1}</td>
+              <td>{course.course.courseTitle}</td>
+              <td>{course.course.courseCode}</td>
+              <td>{course.course.credit}</td>
               <td>
                 {course.teachers.map((teacher) => (
                   <p>{teacher.name}</p>
@@ -54,6 +50,9 @@ const SemesterCourses: React.FC = () => {
               </td>
             </tr>
           ))}
+          {courses.length === 0 && (
+            <div className="mt-8 mx-8 font-[900]">There is no Course</div>
+          )}
         </tbody>
       </table>
     </div>

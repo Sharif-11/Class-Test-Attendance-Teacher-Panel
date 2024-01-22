@@ -11,6 +11,7 @@ export interface Teacher {
   createdAt: Date;
   updatedAt: Date;
 }
+
 export interface LoggedInUser extends Teacher {
   token: string;
 }
