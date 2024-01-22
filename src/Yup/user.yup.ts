@@ -1,7 +1,6 @@
 import * as Yup from "yup";
 import {
   departmentValidation,
-  deptHeadValidation,
   designationValidation,
   emailValidation,
   nameValidation,
@@ -19,6 +18,5 @@ export const teacherValidation = Yup.object({
   designation: designationValidation,
   specialization: specializationValidation,
   password: passwordValidation,
-  deptHead: deptHeadValidation,
   profileImage: profileImageValidation,
 });

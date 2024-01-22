@@ -62,9 +62,13 @@ const InputField = ({
         }}
         type={type || "text"}
         name={name}
-        onChange={formik.handleChange}
+        onChange={
+          type === "file"
+            ? (event) =>
+                formik.setFieldValue(name, event.currentTarget.files![0])
+            : formik.handleChange
+        }
         onBlur={formik.handleBlur}
-        value={formik.values[name]}
         readOnly={readOnly || false}
       />
       <Label htmlFor={name}>{label}</Label>

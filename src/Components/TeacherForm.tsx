@@ -1,11 +1,18 @@
 import { useFormik } from "formik";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { postData } from "../Axios/postData";
+import { ErrorResponse } from "../Interfaces/response.interface";
+import { teacherValidation } from "../Yup/user.yup";
 import Form from "./Form";
 import InputField from "./InputField";
 
 const TeacherForm = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
   const formik = useFormik({
     initialValues: {
-      teacherId: "CSE-1801",
+      teacherId: "",
       name: "",
       email: "",
       department: "",
@@ -13,15 +20,26 @@ const TeacherForm = () => {
       specialization: "",
       deptHead: false,
       password: "",
-      errors: null,
     },
-
-    onSubmit: (values) => {
-      alert(values);
+    validationSchema: teacherValidation,
+    onSubmit: async (values) => {
+      setError("");
+      const result = await postData("/teacher/signup", values, true);
+      if (result.data) {
+        navigate("/dashboard/all-teachers");
+      } else {
+        const message = (result as ErrorResponse).message;
+        setError(message);
+      }
     },
   });
   return (
-    <Form formik={formik} submitText="Create" title="Create Teacher">
+    <Form
+      formik={formik}
+      submitText="Create"
+      title="Create Teacher"
+      error={error}
+    >
       <InputField name="teacherId" formik={formik} label="Teacher Id" />
       <InputField name="name" formik={formik} label="Name" />
       <InputField name="email" formik={formik} label="Email" type="email" />
