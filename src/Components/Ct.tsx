@@ -57,7 +57,7 @@ const Ct = ({
   const handleDelete = async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     // const result = await postData<ClassTestResponse, any>(
-    //   `/ct/${classTestId}`,
+    //   /ct/${classTestId}`,
     //   {}
     // );
     // if (result.data) {
