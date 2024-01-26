@@ -1,6 +1,20 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import axiosInstance, { setAuthHeader } from "../Axios/axiosInstance";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    axiosInstance
+      .post("/auth/teacher/logout")
+      .then(({ data }) => {
+        data.success && setAuthHeader();
+        data.success && navigate("/");
+      })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .catch((err: any) => {
+        alert(err?.message);
+      });
+  };
   return (
     <div className="md:flex h-[100vh] w-[100vw] p-5">
       <ul className="flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 my-8 md:mb-0 w-[15%]">
@@ -55,7 +69,10 @@ const Dashboard = () => {
         </li>
 
         <li>
-          <button className="outline-none inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
+          <button
+            className="outline-none inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+            onClick={handleLogout}
+          >
             Logout
           </button>
         </li>
