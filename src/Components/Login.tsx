@@ -162,8 +162,8 @@ const Login: React.FC = () => {
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
-      teacherId: "CSE-1804",
-      password: "123456forhad",
+      teacherId: "",
+      password: "",
     },
     validationSchema: loginSchema,
     onSubmit: async (values) => {

@@ -73,3 +73,7 @@ export const semesterIdValidator = Yup.string()
   .trim()
   .matches(/^(19\d{2}|20\d{2})[1-8]$/, "Invalid semester ID")
   .required("*Semester ID is required");
+export const studentIdValidation = Yup.string()
+  .trim()
+  .matches(/^\d{7}$/, "*Invalid Student ID format, must be exactly 7 digits")
+  .required("*Student ID is required");

@@ -1,37 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./AllStudent.css"; // Import your CSS file for styling
 
 const AllStudent: React.FC = () => {
   const navigate = useNavigate();
-  const [students, setStudents] = useState([
-    {
-      id: 1804001,
-      name: "Anirban Barua",
-      email: "u1804001@student.cuet.ac.bd",
-      department: "CSE",
-    },
-    {
-      id: 1804002,
-      name: "Tanvir Rahman",
-      email: "u1804002@student.cuet.ac.bd",
-      department: "CSE",
-    },
-  ]);
+  // const [students, setStudents] = useState([
+  //   {
+  //     id: 1804001,
+  //     name: "Anirban Barua",
+  //     email: "u1804001@student.cuet.ac.bd",
+  //     department: "CSE",
+  //   },
+  //   {
+  //     id: 1804002,
+  //     name: "Tanvir Rahman",
+  //     email: "u1804002@student.cuet.ac.bd",
+  //     department: "CSE",
+  //   },
+  // ]);
 
   return (
     <div className="container">
-      <div className="flex justify-between items-center">
-        <h2>All Students</h2>
+      <div className="flex  items-center">
         <button
           className="bg-transparent text-white border-[white]"
           onClick={() => navigate("/dashboard/create-student")}
         >
-          + Add
+          + Add Student
         </button>
       </div>
 
-      <table>
+      {/* <table>
         <thead>
           <tr>
             <th>ID</th>
@@ -54,7 +53,7 @@ const AllStudent: React.FC = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
 
       {/* <div className="form-container">
         <div>

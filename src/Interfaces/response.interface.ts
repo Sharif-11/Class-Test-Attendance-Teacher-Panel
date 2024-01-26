@@ -43,3 +43,26 @@ export type Courses = {
   createdAt: string;
   updatedAt: string;
 }[];
+export type StudentInput = {
+  studentId: string;
+  name: string;
+  email: string;
+  password: string;
+  department: string;
+  role: string;
+  profileImage: null;
+  batch: string;
+  session: string;
+};
+export type StudentOutput = {
+  name: string;
+  email: string;
+  department: string;
+  role: "student";
+  profileImage: string;
+  createdAt: Date;
+  updatedAt: Date;
+  studentId: string;
+  batch: string;
+  session: string;
+};

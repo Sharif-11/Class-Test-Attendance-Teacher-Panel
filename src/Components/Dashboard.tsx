@@ -42,7 +42,7 @@ const Dashboard = () => {
             to="./all-students"
             className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full"
           >
-            All Students
+            Add Student
           </Link>
         </li>
         <li>
