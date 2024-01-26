@@ -1,13 +1,19 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import axiosInstance, { setAuthHeader } from "../Axios/axiosInstance";
+import { setTeacher } from "../Redux/Slicers/teacherSlice";
+import { useAppDispatch, useAppSelector } from "../Redux/hooks";
 
 const Dashboard = () => {
+  const deptHead =
+    useAppSelector((state) => state.user?.teacher?.deptHead) || false;
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handleLogout = () => {
     axiosInstance
       .post("/auth/teacher/logout")
       .then(({ data }) => {
         data.success && setAuthHeader();
+        data.success && dispatch(setTeacher(null));
         data.success && navigate("/");
       })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,38 +41,46 @@ const Dashboard = () => {
             My Courses
           </Link>
         </li>
-        <li>
-          <Link
-            to="./all-course"
-            className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full"
-          >
-            All Courses
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="./all-semester"
-            className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full"
-          >
-            All Semesters
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="./all-students"
-            className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full"
-          >
-            Add Student
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="./all-teachers"
-            className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full"
-          >
-            All Teachers
-          </Link>
-        </li>
+        {deptHead && (
+          <li>
+            <Link
+              to="./all-course"
+              className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full"
+            >
+              All Courses
+            </Link>
+          </li>
+        )}
+        {deptHead && (
+          <li>
+            <Link
+              to="./all-semester"
+              className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full"
+            >
+              All Semesters
+            </Link>
+          </li>
+        )}
+        {deptHead && (
+          <li>
+            <Link
+              to="./all-students"
+              className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full"
+            >
+              Add Student
+            </Link>
+          </li>
+        )}
+        {deptHead && (
+          <li>
+            <Link
+              to="./all-teachers"
+              className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full"
+            >
+              All Teachers
+            </Link>
+          </li>
+        )}
 
         <li>
           <button
