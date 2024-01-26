@@ -1,15 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Navigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../Redux/hooks";
 
-const Protected = ({ children }: { children: any }) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const OnlyHead = ({ children }: { children: any }) => {
   const location = useLocation();
   const teacher = useAppSelector((state) => state.user.teacher);
-  return teacher ? (
+  return teacher && teacher.deptHead ? (
     children
   ) : (
     <Navigate to="/" state={{ from: location }} replace />
   );
 };
 
-export default Protected;
+export default OnlyHead;

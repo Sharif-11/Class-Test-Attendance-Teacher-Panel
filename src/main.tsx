@@ -13,6 +13,7 @@ import ClassTests from "./Components/Classtests.tsx";
 import CourseForm from "./Components/CourseForm.tsx";
 import Courses from "./Components/Courses.tsx";
 import Dashboard from "./Components/Dashboard.tsx";
+import OnlyHead from "./Components/OnlyHead.tsx";
 import Profile from "./Components/Profile.tsx";
 import Protected from "./Components/Protected.tsx";
 import SemesterCourses from "./Components/SemesterCourses.tsx";
@@ -45,19 +46,35 @@ const router = createBrowserRouter([
       },
       {
         path: "all-course",
-        element: <AllCourse />,
+        element: (
+          <OnlyHead>
+            <AllCourse />
+          </OnlyHead>
+        ),
       },
       {
         path: "all-semester",
-        element: <AllSemesters />,
+        element: (
+          <OnlyHead>
+            <AllSemesters />
+          </OnlyHead>
+        ),
       },
       {
         path: "all-students",
-        element: <AllStudent />,
+        element: (
+          <OnlyHead>
+            <AllStudent />
+          </OnlyHead>
+        ),
       },
       {
         path: "all-teachers",
-        element: <AllTeacher />,
+        element: (
+          <OnlyHead>
+            <AllTeacher />
+          </OnlyHead>
+        ),
       },
       {
         path: "semester-courses/:semesterId",
@@ -65,23 +82,44 @@ const router = createBrowserRouter([
       },
       {
         path: "create-teacher",
-        element: <TeacherForm />,
+        element: (
+          <OnlyHead>
+            <TeacherForm />
+          </OnlyHead>
+        ),
       },
       {
         path: "create-student",
-        element: <StudentForm />,
+        element: (
+          <OnlyHead>
+            {" "}
+            <StudentForm />
+          </OnlyHead>
+        ),
       },
       {
         path: "create-semester",
-        element: <SemesterForm />,
+        element: (
+          <OnlyHead>
+            <SemesterForm />
+          </OnlyHead>
+        ),
       },
       {
         path: "create-course",
-        element: <CourseForm />,
+        element: (
+          <OnlyHead>
+            <CourseForm />
+          </OnlyHead>
+        ),
       },
       {
         path: "assign-course/:semesterId",
-        element: <AssignForm />,
+        element: (
+          <OnlyHead>
+            <AssignForm />
+          </OnlyHead>
+        ),
       },
       {
         path: "courses/:semesterId/:courseCode",
