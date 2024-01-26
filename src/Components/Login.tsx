@@ -1,17 +1,17 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { setAuthHeader } from "../Axios/axiosInstance";
 import { postData } from "../Axios/postData";
 import { TeacherLogin } from "../Interfaces/login.interface";
 import { ErrorResponse } from "../Interfaces/response.interface";
 import { Teacher } from "../Interfaces/user.interface";
 import { setTeacher } from "../Redux/Slicers/teacherSlice";
+import { useAppSelector } from "../Redux/hooks";
 import { loginSchema } from "../Yup/login.yup";
 import Form from "./Form";
 import InputField from "./InputField";
-
 // const gradientAnimation = keyframes`
 //   0% {
 //     left: -100%;
@@ -156,9 +156,11 @@ import InputField from "./InputField";
 // `;
 
 const Login: React.FC = () => {
+  const location = useLocation();
   const [isSubmitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const teacher = useAppSelector((state) => state.user.teacher);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -188,6 +190,10 @@ const Login: React.FC = () => {
       }
     },
   });
+  const from = location.state?.from?.pathname || "/dashboard";
+  if (teacher) {
+    navigate(from, { replace: true });
+  }
   return (
     // <LoginBox>
     //   <StyledLoginBox>

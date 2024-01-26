@@ -14,6 +14,7 @@ import CourseForm from "./Components/CourseForm.tsx";
 import Courses from "./Components/Courses.tsx";
 import Dashboard from "./Components/Dashboard.tsx";
 import Profile from "./Components/Profile.tsx";
+import Protected from "./Components/Protected.tsx";
 import SemesterCourses from "./Components/SemesterCourses.tsx";
 import SemesterForm from "./Components/SemesterForm.tsx";
 import StudentForm from "./Components/StudentForm.tsx";
@@ -28,7 +29,11 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard />,
+    element: (
+      <Protected>
+        <Dashboard />
+      </Protected>
+    ),
     children: [
       {
         path: "",

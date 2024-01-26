@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import axiosInstance, { setAuthHeader } from "../Axios/axiosInstance";
 import { setTeacher } from "../Redux/Slicers/teacherSlice";
 import { useAppDispatch, useAppSelector } from "../Redux/hooks";
@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "../Redux/hooks";
 const Dashboard = () => {
   const deptHead =
     useAppSelector((state) => state.user?.teacher?.deptHead) || false;
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleLogout = () => {
     axiosInstance
@@ -14,7 +13,6 @@ const Dashboard = () => {
       .then(({ data }) => {
         data.success && setAuthHeader();
         data.success && dispatch(setTeacher(null));
-        data.success && navigate("/");
       })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .catch((err: any) => {
