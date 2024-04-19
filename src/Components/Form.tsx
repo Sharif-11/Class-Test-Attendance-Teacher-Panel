@@ -112,6 +112,8 @@ const Form = ({
   disabled,
   error,
   customStyle = {},
+  loading = false,
+  loadingText = "",
 }: {
   title: string;
   formik: any;
@@ -120,6 +122,8 @@ const Form = ({
   disabled?: boolean;
   error?: string;
   customStyle?: any;
+  loading?: boolean;
+  loadingText?: string;
 }) => {
   return (
     <FormContainer>
@@ -135,7 +139,7 @@ const Form = ({
               <Span2 />
               <Span3 />
               <Span4 />
-              {submitText}
+              {loading ? loadingText :submitText }
             </SubmitButton>
           </div>
           <Error>{error}</Error>

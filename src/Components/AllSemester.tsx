@@ -35,7 +35,7 @@ const AllSemesters = () => {
   return (
     <div className="container">
       <div className="flex justify-between items-center">
-        <h2>All Semesters</h2>
+        <h2 style={{ fontWeight: "bold", color: "white" }}>All Semesters</h2>
         <button
           className="bg-transparent text-white border-[white]"
           onClick={() => navigate("/dashboard/create-semester")}

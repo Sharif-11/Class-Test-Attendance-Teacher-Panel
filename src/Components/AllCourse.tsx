@@ -37,7 +37,7 @@ const AllCourse: React.FC = () => {
   return (
     <div className="container">
       <div className="flex justify-between items-center">
-        <h2>All Courses</h2>
+        <h2 style={{ color: "white", fontWeight: "bold" }}>All Courses</h2>
         <button
           className="bg-transparent text-white border-[white]"
           onClick={() => navigate("/dashboard/create-course")}

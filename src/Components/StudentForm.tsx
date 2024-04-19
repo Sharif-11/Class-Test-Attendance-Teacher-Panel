@@ -13,21 +13,23 @@ import InputField from "./InputField";
 
 const StudentForm = () => {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      studentId: "",
+      studentId: "1804001",
       name: "",
-      email: "",
-      password: "",
-      department: "",
+      email: "u1804001@student.cuet.ac.bd",
+      password: "u1804001",
+      department: "CSE",
       role: "student",
       profileImage: null,
-      batch: "",
-      session: "",
+      batch: "2018",
+      session: "2018-2019",
     },
     validationSchema: studentValidation,
     onSubmit: async (values) => {
+      setLoading(true);
       setError("");
       // alert(JSON.stringify(values));
       const result = await postData<StudentOutput, StudentInput>(
@@ -36,8 +38,11 @@ const StudentForm = () => {
         true
       );
       if (result.data) {
-        navigate(`/dashboard/all-students`);
+        setLoading(false);
+        setError("success");
+        //navigate(`/dashboard/all-students`);
       } else {
+        setLoading(false);
         const message = (result as ErrorResponse).message;
         // alert(message);
         setError(message);
@@ -58,6 +63,8 @@ const StudentForm = () => {
         justifyContent: "space-between",
         flex: 2,
       }}
+      loading={loading}
+      loadingText="Creating..."
     >
       <InputField name="studentId" formik={formik} label="Student Id" />
       <InputField name="name" formik={formik} label="Name" />
