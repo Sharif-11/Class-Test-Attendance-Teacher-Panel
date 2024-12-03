@@ -29,7 +29,7 @@ const ClassTestForm = () => {
     <Form
       formik={formik}
       submitText="Create"
-      title="Create CT"
+      title={loading ? "Creating..." : "Create CT"}
       error={error || ""}
     >
       <InputField
