@@ -46,6 +46,7 @@ const InputField = ({
   label,
   readOnly,
   className = "",
+  value = "",
 }: {
   formik: any;
   type?: string;
@@ -53,6 +54,7 @@ const InputField = ({
   label: string;
   readOnly?: boolean;
   className?: string;
+  value?: string;
 }) => {
   return (
     <UserBox>
@@ -64,6 +66,7 @@ const InputField = ({
         }}
         type={type || "text"}
         name={name}
+        value={formik.values[name] ?? value}
         onChange={
           type === "file"
             ? (event) =>

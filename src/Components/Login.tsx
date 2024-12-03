@@ -266,12 +266,18 @@ const Login: React.FC = () => {
       error={error}
       loading={isSubmitting}
     >
-      <InputField name="teacherId" formik={formik} label="Teacher Id" />
+      <InputField
+        name="teacherId"
+        formik={formik}
+        label="Teacher Id"
+        value="CSE-1805"
+      />
       <InputField
         name="password"
         formik={formik}
         label="Password"
         type="password"
+        value="123456"
       />
     </Form>
   );
