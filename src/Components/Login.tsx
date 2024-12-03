@@ -264,6 +264,7 @@ const Login: React.FC = () => {
       loadingText="Loading..."
       disabled={isSubmitting}
       error={error}
+      loading={isSubmitting}
     >
       <InputField name="teacherId" formik={formik} label="Teacher Id" />
       <InputField
