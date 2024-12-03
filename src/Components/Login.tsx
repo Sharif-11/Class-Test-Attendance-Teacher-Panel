@@ -261,6 +261,7 @@ const Login: React.FC = () => {
       title="Login"
       formik={formik}
       submitText="Login"
+      loadingText="Loading..."
       disabled={isSubmitting}
       error={error}
     >
