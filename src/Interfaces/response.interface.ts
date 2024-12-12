@@ -50,7 +50,7 @@ export type StudentInput = {
   password: string;
   department: string;
   role: string;
-  profileImage: null;
+  profileImage: string | null;
   batch: string;
   session: string;
 };

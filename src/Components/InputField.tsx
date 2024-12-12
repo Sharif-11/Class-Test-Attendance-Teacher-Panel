@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { FormikProps } from "formik";
 import styled from "styled-components";
 
 const UserBox = styled.div`
   position: relative;
   margin-bottom: 16px;
 `;
+
 const Error = styled.p`
   color: red;
   font-size: 12px;
   margin-top: -4px;
 `;
+
 const Input = styled.input`
   width: 100%;
   padding: 10px 0;
@@ -29,6 +32,7 @@ const Input = styled.input`
     font-size: 12px;
   }
 `;
+
 const Label = styled.label`
   position: absolute;
   top: 0;
@@ -39,7 +43,8 @@ const Label = styled.label`
   pointer-events: none;
   transition: 0.5s;
 `;
-const InputField = ({
+
+const InputField = <T,>({
   formik,
   type,
   name,
@@ -48,7 +53,7 @@ const InputField = ({
   className = "",
   value = "",
 }: {
-  formik: any;
+  formik: FormikProps<T>;
   type?: string;
   name: string;
   label: string;
@@ -56,17 +61,17 @@ const InputField = ({
   className?: string;
   value?: string;
 }) => {
+  const hasError = formik.touched[name] && formik.errors[name];
+
   return (
     <UserBox>
       <Input
         style={{
-          borderColor: `${
-            formik.touched[name] && formik.errors[name] ? "red" : "white"
-          }`,
+          borderColor: hasError ? "red" : "white",
         }}
         type={type || "text"}
         name={name}
-        value={formik.values[name] ?? value}
+        value={type === "file" ? undefined : formik.values[name] ?? value}
         onChange={
           type === "file"
             ? (event) =>
@@ -76,9 +81,10 @@ const InputField = ({
         onBlur={formik.handleBlur}
         readOnly={readOnly || false}
         className={className}
+        aria-invalid={hasError || undefined}
       />
       <Label htmlFor={name}>{label}</Label>
-      <Error>{formik.errors[name]}</Error>
+      {hasError && <Error>{formik.errors[name]}</Error>}
     </UserBox>
   );
 };

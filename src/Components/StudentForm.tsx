@@ -22,7 +22,7 @@ const StudentForm = () => {
       password: "u1804001",
       department: "CSE",
       role: "student",
-      profileImage: null,
+      profileImage:'',
       batch: "2018",
       session: "2018-2019",
     },
